@@ -25,12 +25,21 @@
             </li>
         </ul>
         <ul class="navbar-nav ms-auto">
+            <?php if(!isset($_SESSION['is_logged_in'])) : ?>
             <li>
                 <a class="nav-link" href="<?php echo ROOT_PATH; ?>users/login">Login</a>
             </li>
             <li>
                 <a class="nav-link" href="<?php echo ROOT_PATH; ?>users/register">Register</a>
             </li>
+            <?php elseif(isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] == true ) : ?>
+            <li>
+                <a class="nav-link" href="<?php echo ROOT_PATH; ?>">Welcome, <?php echo $_SESSION['user_data']['name']; ?></a>
+            </li>
+            <li>
+                <a class="nav-link" href="<?php echo ROOT_PATH; ?>users/logout">Logout</a>
+            </li>
+            <?php endif; ?>
         </ul>
         </div>
     </div>
