@@ -47,6 +47,11 @@
 
     <div class="container">
         <div class="row">
+            <?php 
+                Messages::displayMsg(); 
+                unset($_SESSION['successMsg']);
+                unset($_SESSION['errorMsg']);
+            ?>
             <?php require_once($view); ?>   
         </div>        
     </div>

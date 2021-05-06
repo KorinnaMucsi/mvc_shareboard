@@ -8,6 +8,12 @@ class UserModel extends Model {
         
 
         if(isset($post['submit'])){
+
+            if($post['name'] == '' || $post['email'] == '' || $post['password'] == ''){
+                Messages::setMessage("Please, fill in all the fields.", "error");
+                return;
+            }
+
             $password = md5($post['password']);
             //Insert Query
             $this->query("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");
@@ -32,6 +38,12 @@ class UserModel extends Model {
         $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);        
 
         if(isset($post['submit'])){
+
+            if($post['email'] == '' || $post['password'] == ''){
+                Messages::setMessage("Please, fill in all the fields.", "error");
+                return;
+            }
+
             $password = md5($post['password']);
             //Select Query for the logged in user
             $this->query("SELECT * FROM users WHERE email = :email AND password = :password");
@@ -50,7 +62,7 @@ class UserModel extends Model {
                 ];
                 header('Location: ' . ROOT_PATH . 'shares');
             } else {
-                echo "Incorrect login parameters.";
+                Messages::setMessage("Incorrect login parameters", "error");
             }
         }
 
